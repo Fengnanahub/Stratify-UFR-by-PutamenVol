@@ -57,8 +57,6 @@ for i = 1:length(GHRcolu)
     fp(i, 1) = tb1{2, 6}; % F value
 end
 
-
-
 %% %%%%%%%%%% subgroup GHR Behavioral analysis %%%%%%%%%%%;
 %% subgroup the GHR by R_putamen volume-median of HC;
 %% compute mean/SD of behavioral data
