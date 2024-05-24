@@ -5,7 +5,7 @@ dataAta = array2table(dataA(:, [1:4]),'VariableNames', {'TIV', 'GM',...
 HCdataMatchImageFDTIVspm1 = [HCdataMatchImageFDTIVspm(:, [1:10]), dataAta,...
     HCdataMatchImageFDTIVspm(:, [15: end])];
 
-%% compute the volume of subarea of striatum
+%% compute the volume of regional putamen
 % step1: obtain the ROI seed(subarea of striatum in AAL3);
 path = ['~/3ndComputVBMcat12modulated'];
 mask1 = zeros(113,137,113);
@@ -45,6 +45,7 @@ for i = 1:length(subfolder)
 end
 roiVoltable = array2table(roiVol, 'VariableNames',...
     {'ID', 'put77volml', 'put78colml'});
+    
 %% %%%%subgroup the GHR by striatum(including putamen...) volume-median from HC;
 %% compute the mean(SD) striatum(including putamen...) volume of HC59;
 colu = 7;
@@ -55,6 +56,7 @@ meansd(1,3) = median(HC59subareaStriatumVOL1{:, colu});
 meansd(2,1) = nanmean(GHR63subareaStriatumVOL1{:, colu});
 meansd(2,2) = nanstd(GHR63subareaStriatumVOL1{:, colu});
 meansd(2,3) = median(GHR63subareaStriatumVOL1{:, colu});
+
 %% %%%%%%%%%%%%%%%1. separate the GHR by cutoff defined as the median of volume in HC;
 clear num;
 cutof =0.6681; % vol median;
@@ -82,6 +84,7 @@ save GHRminHCmedian_index78.mat GHRminindex78;
 
 load('GHRmaxHCmedian_index78.mat');
 load('GHRminHCmedian_index78.mat');
+
 %% mean(SD) of subarea subgroup
 colu = [5, 9, 11:14];
 row1 = GHRmaxindex78;
@@ -97,6 +100,7 @@ for i = 1:length(colu)
     meansd(i,5) = nanmean(HCdataMatchImageFDTIVspm1{rowHC, colu(i)});%%%%HC
     meansd(i,6) = nanstd(HCdataMatchImageFDTIVspm1{rowHC, colu(i)});
 end
+
 %% anova WITH covariates--2023(3 group + hoc-post);
 %  behavioral variable, symptom, cognitive,,,
 rowHC = [1:59];
@@ -125,33 +129,6 @@ for i = 1:length(colu1)
     {'GroupA','GroupB' ,'LowerLimi','A_B','UpperLimit','Pvalue'});
 end
 
-%% (subgroup of striatum volume) anova WITH covariates--2023(3 group + hoc-post);
-rowHC = [1:59];
-colu1 =[2:7];
-row1 = GHRmaxindex78;%
-row2 = GHRminindex78;
-Cov = [GHRdataMatchImageFDTIV1{row1, [5, 4, 9, 11]};...
-    GHRdataMatchImageFDTIV1{row2, [5, 4, 9, 11]};...
-    HCdataMatchImageFDTIVspm1{rowHC, [5, 4, 9, 11]}];
-clear fp;
-clear tbl11;
-for i = 1:length(colu1)
-    data2comp = [GHR63subareaStriatumVOL1{row1, colu1(i)};...
-        GHR63subareaStriatumVOL1{row2, colu1(i)};...
-        HC59subareaStriatumVOL1{rowHC, colu1(i)}];
-    grouplabel = [ones(length(row1), 1);2*ones(length(row2), 1);...
-        3*ones(length(rowHC), 1)];%%%%%%%%%%%need revise;
-    % age,sex,edu,tiv
-    groups = [grouplabel, Cov];
-    [p, tb1,stats]= anovan(data2comp, groups, 'continuous', [2, 4, 5]);
-    fp(i, 2) = p(1); % pvalue
-    fp(i, 1) = tb1{2, 6}; % F value
-    
-    [results,~,~,gnames] = multcompare(stats,"Dimension",[1]);
-    tbl11{i, 1} = array2table(results,'VariableNames',...
-    {'GroupA','GroupB' ,'LowerLimi','A_B','UpperLimit','Pvalue'});
-end
-
 %% %%%%%% GHR63-HC59 VBM Analysis;%%%%%%%%%%%%%%%%%%%%%
 %% %%% volume analysis between each GHR63 group and HC59 %%%
 %% 1. to extract the cluster volume in the group of GHR63 and HC59, separately;
@@ -159,10 +136,10 @@ end
 WKD = ['~/3ndComputVBMcat12modulated/ghr63HC59volume2ndanalysis'];
 cellname = {'GHR63T1', 'HC59T1'};
 clear cellclumask;
-for cl = 1: 12
+for cl = 1: 10
     cellclumask{1, cl} = ['cluster', num2str(cl), '_mask.nii'];
 end
-% clusrer 1-12
+% clusrer 1-10
 clear GHRHCclusterVolnanmean;
 for j= 1: length(cellname)
     clear subfiles;
@@ -193,6 +170,7 @@ end
 
 % save
 save  GHR63HC59cluster19VolmeanXin.mat GHR63HC59clusterVolmean;
+
 %% 2.correcction between cluster volume and symptoms scores(SIPS/GAF); 
 % using age,sex,edu,TIV as covariates;
 % rowINDEX  = [1: 9, 11:63]; % Remove GHR10181;
@@ -218,7 +196,7 @@ end
 
 %% %%%%%%%%%%%%% GHR subgroup and HC59 %%%%%%%%%%%%%%%%%%%%%
 %% extract the subgroup age,sex,edu, TIV behavior data and image data;
-%% two T using age.sex.edu,TIV as COVs compare the group of GHRmax-HC59 and GHRmin-HC59;
+%% two T using age.sex.edu,TIV as COVs compare the group of GHRmax-HC and GHRmin-HC;
 % using GRF corrected the T statistical results and using the saved cluster
 % mask of passing the GRF correction 
 %% 1. to extract the cluster volume in the group of GHRmax and GHRmin, separately;
@@ -257,6 +235,7 @@ for j= 1: length(cellname)
     end
     GHRmaxHCclusterVolml{j, 1} = signal; 
 end
+
 %% 2.correcction between cluster volume and symptoms scores(SIPS/GAF); 
 % using age,sex,edu,TIV as covariates;
 % MAX group;
