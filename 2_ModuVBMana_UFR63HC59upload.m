@@ -303,7 +303,6 @@ fdrQ = mafdr(pvalue, 'BHFDR', true);
 
 %% %%%%%% mediation analysis %%%%
 %% subgroup cluster  GHR vol-LESN-symptom(SIPS);;
-% 
 Rowin = GHRminindex78([1:5, 7:31, 33: end]);%%% index-subgroup;
 Xa = GHRminHCclusterVolml{1, 1}(:,2);%  vol
 M = zscore(Xa([1:5, 7:31, 33: end]));
@@ -391,8 +390,7 @@ spm_write_vol(V, Fcon1);
 
 %%  step1:extract the mean z value in brain ROI of cerellum part of AAL3;
 % in AAL3, [1:94, 121:170]; of which no label equals to 35,36,81,82;
- path = ['/public/home/Fengnana/DATA210725',...
-     '/SCZ2015XYMRS/PROdcmniixBIDSnoMRS/BIDSNEWfmriprep/3ndComputVBMcat12modulated'];
+ path = ['~/3ndComputVBMcat12modulated'];
 mask1 = zeros(113,137,113);
 Vatlas = spm_vol([path, '/slice_AAL3v1.nii']);% 1.5*1.5*1.5;
 Tatlas = spm_read_vols(Vatlas); % AAL3 data;
@@ -407,7 +405,6 @@ for i = 1:length(label)
     voxelMediationGHR78minAAL3mean(i, 2) = nanmean(data);
 end
 % save the aal3 ROI144 mean Tvalue(144*2) as csv
-csvwrite('voxelMediationGHR78min_ABz_AAL3meanAAL3ROI144mean.csv', voxelMediationGHR78minAAL3mean);
 
 %% %%%%%%%%%%%%GHRmax: similiar voxel mediation with above GHR78min subgroup%%%
 %% % read the image data Cell{sub26*1}--GHRmax-voxel mediation
