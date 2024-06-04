@@ -106,9 +106,9 @@ ROIvolROIvarAll$sex = factor(ROIvolROIvarAll$sex)
 ROIvolROIvarAll$race = factor(ROIvolROIvarAll$race)
 ROIvolROIvarAll$siteID = factor(ROIvolROIvarAll$siteID)
 ROIvolROIvarAll$FamilyID = factor(ROIvolROIvarAll$FamilyID)
-save(ROIvolROIvarAll, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.rda')# 1680*45
+save(ROIvolROIvarAll, file = '~/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.rda')# 1680*45
 
-write.csv(ROIvolROIvarAll, '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.csv', row.names=FALSE)# 1680*45
+write.csv(ROIvolROIvarAll, '~/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.csv', row.names=FALSE)# 1680*45
 ######################## end extract (1680*45) ################
 
 
@@ -124,11 +124,11 @@ for (j in 1:ncol(dataneedPro)){
 colnames(fu4_2y_ColNA1680) <- c(colnames(dataneedPro))
 rownames(fu4_2y_ColNA1680) <- c('NAnumeachCol', 'noNAnumofeachCol')
 
-save(fu4_2y_ColNA1680, '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVarNAsum.rda', row.names=FALSE)# 1680*45
+save(fu4_2y_ColNA1680, '~/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVarNAsum.rda', row.names=FALSE)# 1680*45
 
 
 ## ###### Ana 2 again: using all 1680 subjects;
-load('D:/DATA_Fudan/ABCDdata/New_ABCDanaAgain20231115/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.rda')# 1680*45
+load('~/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.rda')# 1680*45
 # age,sex, description 
 meanAge <- mean(ROIvolROIvarAll$age) # 142.998
 sdAge <- sd(ROIvolROIvarAll$age) # 7.451
@@ -157,7 +157,7 @@ for (i in 1:length(colN)) {
 #################### Ana6 Again##########################################
 ###### 6.5. Q4 subjects: Using Cat12 ROI vol 20231217, 以其他阈值划分PRS
 rm(list=ls())
-load('~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.rda') # 1680*45
+load('~/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.rda') # 1680*45
 
 PRSin <- match('PRS0001', colnames(ROIvolROIvarAll)) # sz-PRS begins at which col;21
 PRSfinal <- match('PRS05', colnames(ROIvolROIvarAll))#27
@@ -177,13 +177,9 @@ dataQudrant1 <- ROIvolROIvarAll[(ROIvolROIvarAll$Rput78colmm3>=volcutoff) & (ROI
 dataQudrant2 <- ROIvolROIvarAll[(ROIvolROIvarAll$Rput78colmm3>=volcutoff) & (ROIvolROIvarAll$PRS0001<PRScutoff), ] # 761*46
 dataQudrant3 <- ROIvolROIvarAll[(ROIvolROIvarAll$Rput78colmm3<volcutoff) & (ROIvolROIvarAll$PRS0001<PRScutoff), ] # 755*46
 dataQudrant4 <- ROIvolROIvarAll[(ROIvolROIvarAll$Rput78colmm3<volcutoff) & (ROIvolROIvarAll$PRS0001>=PRScutoff), ] # 85*46
-save(dataQudrant1, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/1680PRS0001cat12RputaVol_dataQ4x/t1qc1680_median1SD_Q1_s79ROIdata.rda')#
-save(dataQudrant2, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/1680PRS0001cat12RputaVol_dataQ4x/t1qc1680_median1SD_Q2_s761_ROIdata.rda')#
-save(dataQudrant3, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/1680PRS0001cat12RputaVol_dataQ4x/t1qc1680_median1SD_Q3_s755_ROIdata.rda')#
-save(dataQudrant4, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/1680PRS0001cat12RputaVol_dataQ4x/t1qc1680_median1SD_Q4_s85ROIdata.rda')#
 
 # plot GHRclu1vol by SUMp_ksds_ptsd in each Qudrant
-## same PIC for 4 qudrant to manuscript;--- final--20240508
+## same PIC for 4 qudrant to manuscript;--- final--
 library(tidyverse)
 # Q1
 q1.manu <-dataQudrant1 |>
@@ -228,11 +224,7 @@ library(patchwork)
 
 
 ##### PRS cutoff1, R_putamen median separated Q4 Ana
-load('~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.rda') # 1680*45
-
-dataQudrant4 <- ROIvolROIvarAll[(ROIvolROIvarAll$Rput78colmm3<volcutoff) & (ROIvolROIvarAll$PRS0001>=PRScutoff), ] # 85*45
-
-#### 6.5.2 ROI vol -症状或LESN 相关性；Q4 subjects;
+#### 6.5.2 ROI vol -LESN 相关性；Q4 subjects;
 stressin <- match('SUMp_ksads_ptsd', colnames(dataQudrant4)) # LESN 
 
 ### (1). ROI（'GHRcluster1Lcaudatemm3' or 'Lcau75volmm3'） vol 与stress相关性# -控制age,sex; Q4被试；
@@ -248,16 +240,14 @@ for (i in stressin){
   
   result_vol1<-rbind(result_vol1, c(colnames(dataQudrant4)[i], fitvol1CI[2, ]))
 }
-result_vol1 <- as.data.frame(result_vol1) # 7*7
+result_vol1 <- as.data.frame(result_vol1) 
 colnames(result_vol1)[5]<- c('pvalue')
-result_vol1$pvalue.Adj<- p.adjust(result_vol1$pvalue, method = 'fdr', n=length(result_vol1$pvalue)) ## 7*8
 
 
-# (again, ptsd binary). ROI（'GHRcluster1Lcaudatemm3'） vol 与stress性; Q4被试；
+# ROI（'GHRcluster1Lcaudatemm3'） vol 与 binary stress性; Q4被试；
 stressin <- match('SUMp_ksads_ptsd', colnames(dataQudrant4copy))
 result_vol1 <- c()
 rm(fitvol1)
-
 for (i in stressin){
   # Binarize column i
   dataQudrant4copy[, i]<- ifelse(dataQudrant4copy[, i] <= 0, 0, 1)
@@ -269,15 +259,13 @@ for (i in stressin){
 
   result_vol1<-rbind(result_vol1, c(colnames(dataQudrant4copy)[i], fitvol1CI[2, ]))
 }
-result_vol1 <- as.data.frame(result_vol1) # 5*7
+result_vol1 <- as.data.frame(result_vol1) 
 colnames(result_vol1)[5]<- c('pvalue')
-result_vol1$pvalue.Adj<- p.adjust(result_vol1$pvalue, method = 'fdr', n=length(result_vol1$pvalue)) ## 5*8
-
 
 ##############################################################################
 ### Ana 7 again(1680 sub),  GHRcluster1Lcaudatemm3~ stress * R_putamenVol * PRS+age+sex+TIV+siteID
 rm(list=ls())
-load('~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.rda')# 1680*45
+load('~/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.rda')# 1680*45
 
 stressin <- match('SUMp_ksads_ptsd', colnames(ROIvolROIvarAll)) # LESN begins at which col;
 
@@ -290,7 +278,6 @@ library(Matrix)
 rm(fit1)
 rm(fit1CI)
 result1 <- c()
-# stress loop，12
 for (i in stressin){
   fit1 <- lm(GHRcluster1Lcaudatemm3 ~ datause[, i]* Rput78colmm3 *PRS0001 + age + sex + catTIV+ siteID+genePC1+genePC2+genePC3+genePC4+genePC5+genePC6+genePC7+genePC8+genePC9+genePC10, data = datause)
   fit1coef<-coef(summary(fit1))
@@ -301,23 +288,14 @@ for (i in stressin){
 }
 result1 <- as.data.frame(result1) # 7*7
 colnames(result1)[5]<- c('pvalue')
-result1$pvalue.Adj<- p.adjust(result1$pvalue, method = 'fdr', n=length(result1$pvalue)) ## 7*8, no FDR sign
-GHRclu1_LoopStressRputaPRS <- result1
-save(GHRclu1_LoopStressRputaPRS, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/Cauda_SressPutamenPRS1680/V3Cat12ROIvolTIV_t1qc1680_GHRclu1_lm_LoopStressRputaPRS.rda') 
-
-
 
 ## ### 7.1 again again, binary stress score for samel above 7.1 again ana;
 rm(list=ls())
 load('~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar.rda')# 1680*45
 
-rm(datause)
-datause <- subset(ROIvolROIvarAll, select = -c(ple_p_ss_affected_bad_mean, ple_y_ss_affected_bad_mean))
-
 # (3 again bin) GHRcluster1 ~ stressi*R_putamenVol*PRS0001
 # ------ 取stress为binary SUMp_ksads_ptsd------
 datause[, 14]<- ifelse(datause[, 14] <= 0, 0, 1) # binary
-
 fit1 <- lm(GHRcluster1Lcaudatemm3 ~ SUMp_ksads_ptsd* Rput78colmm3 *PRS0001 + age + sex + catTIV+ siteID+genePC1+genePC2+genePC3+genePC4+genePC5+genePC6+genePC7+genePC8+genePC9+genePC10, data = datause)
 fit1coef<-coef(summary(fit1))
 #calculate 95% CI for regression coefficient beta--> add to fit1
@@ -340,14 +318,12 @@ length(which(ROIvolROIvarAll$pps_y_ss_severity_score>6)) #200
 indexL0 <- which(ROIvolROIvarAll$pps_y_ss_severity_score>6)
 
 ROIvolROIvarAll_Repsy6 <- ROIvolROIvarAll[-indexL0, ]# 1480*46, using below;
-save(ROIvolROIvarAll_Repsy6, file= '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/Further_removePSY6_1480_interestVar/PCAgu_whiteA3086_V3Cat12ROIvolTIV_t1qc1680_interstVar1480.rda')
-
+# save(ROIvolROIvarAll_Repsy6)
 
 volcutoff <- median(ROIvolROIvarAll_Repsy6$Rput78colmm3) # 4774.9701
 PRSmedian <- median(ROIvolROIvarAll_Repsy6$PRS0001) # PRS0001, -0.002217855
 PRSmean <- mean(ROIvolROIvarAll_Repsy6$PRS0001) # PRS0001, -0.0022795
-PRSSD <- sd(ROIvolROIvarAll_Repsy6$PRS0001) # PRS0001 sd, 0.0003843
-
+PRSSD <- sd(ROIvolROIvarAll_Repsy6$PRS0001) # PRS0001 sd, 0.000384
 
 ## ---- (8.1) 1480 PRS cutoff 1:median+SD;volcutoff:median Q4;
 # ------ ---------- 8.1 Ana start -----------------
@@ -357,10 +333,6 @@ dataQudrant1 <- ROIvolROIvarAll_Repsy6[(ROIvolROIvarAll_Repsy6$Rput78colmm3>=vol
 dataQudrant2 <- ROIvolROIvarAll_Repsy6[(ROIvolROIvarAll_Repsy6$Rput78colmm3>=volcutoff) & (ROIvolROIvarAll_Repsy6$PRS0001<PRScutoff), ] # 675*46
 dataQudrant3 <- ROIvolROIvarAll_Repsy6[(ROIvolROIvarAll_Repsy6$Rput78colmm3<volcutoff) & (ROIvolROIvarAll_Repsy6$PRS0001<PRScutoff), ] # 665*46
 dataQudrant4 <- ROIvolROIvarAll_Repsy6[(ROIvolROIvarAll_Repsy6$Rput78colmm3<volcutoff) & (ROIvolROIvarAll_Repsy6$PRS0001>=PRScutoff), ] # 75*46
-save(dataQudrant1, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/Further_removePSY6_1480_interestVar/1480_PRS0001cat12RputaVol_dataQ4x/t1qc1480_median1SD_Q1_s65ROIdata.rda')#
-save(dataQudrant2, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/Further_removePSY6_1480_interestVar/1480_PRS0001cat12RputaVol_dataQ4x/t1qc1480_median1SD_Q2_s675ROIdata.rda')#
-save(dataQudrant3, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/Further_removePSY6_1480_interestVar/1480_PRS0001cat12RputaVol_dataQ4x/t1qc1480_median1SD_Q3_s665ROIdata.rda')#
-save(dataQudrant4, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/Further_removePSY6_1480_interestVar/1480_PRS0001cat12RputaVol_dataQ4x/t1qc1480_median1SD_Q4_s75ROIdata.rda')#
 
 #### ---- (8.1.1) ROI vol -LESN Bin 相关性；1480 Q4 subjects;
 ##---- Fit a linear regression model 
@@ -371,18 +343,13 @@ model4 <- lm(GHRcluster1Lcaudatemm3 ~ SUMp_ksads_ptsdBin + age +sex+catTIV+siteI
 fitvol4CI <- cbind(coef(summary(model4)), confint(model4, conf.level = 0.95))
 ## same PIC for 4 qudrant to manuscript;--- final--20240508
 
-
-
-#### ---- (8.1.2) ROI vol -LESN 相关性；1480 划分的Q4 subjects;
+#### ---- (8.1.2) ROI vol -LESN 相关性；1480 Q4 subjects;
 stressin <- match('SUMp_ksads_ptsd', colnames(dataQudrant4)) # LESN begins at which col; 14
-
 # (1). ROI（'GHRcluster1Lcaudatemm3'） vol 与tress相关性# -Q4被试；
 library(Matrix)
-
 datause <-dataQudrant4
 result_vol1 <- c()
 rm(fitvol1)
-
 for (i in stressin){
   ## ROI vol~stressi+...
   fitvol1 <- lm(GHRcluster1Lcaudatemm3 ~ datause[, i]+age + sex+ catTIV + siteID, data = datause)
@@ -393,19 +360,13 @@ for (i in stressin){
 }
 result_vol1 <- as.data.frame(result_vol1) # 7*7
 colnames(result_vol1)[5]<- c('pvalue')
-result_vol1$pvalue.Adj<- p.adjust(result_vol1$pvalue, method = 'fdr', n=length(result_vol1$pvalue)) ## 7*8
-
-save(result_vol1, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/Further_removePSY6_1480_interestVar/1480_PRS0001cat12RputaVol_dataQ4x/SoOn_t1qc1480_Q4median1SD_lm75_LESN_GHRclu1Vol.rda')#
-
 
 # --- (8.1.2 again, stress binary). 
 # (1 again) ROI（'GHRcluster1Lcaudatemm3'） vol 与stress; Q4被试；
-
 stressin <- match('SUMp_ksads_ptsd', colnames(datauseB))
 
 result_vol1 <- c()
 rm(fitvol1)
-
 for (i in stressin){
   # Binarize column i
   datauseB[, i]<- ifelse(datauseB[, i] <= 0, 0, 1)
@@ -419,9 +380,6 @@ for (i in stressin){
 }
 result_vol1 <- as.data.frame(result_vol1) # 5*7
 colnames(result_vol1)[5]<- c('pvalue')
-result_vol1$pvalue.Adj<- p.adjust(result_vol1$pvalue, method = 'fdr', n=length(result_vol1$pvalue)) ## 5*8
-
-save(result_vol1, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/Further_removePSY6_1480_interestVar/1480_PRS0001cat12RputaVol_dataQ4x/SoOn_t1qc1480_Q4median1SD_lm75_LESNbin_GHRclu1Vol.rda')#
 ###### ------------ End Ana 8.1 (1480 Q4 分析) ------------
 
 
@@ -433,14 +391,12 @@ load('~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/Further_removePSY6_1480_int
 stressin <- match('SUMp_ksads_ptsd', colnames(ROIvolROIvarAll_Repsy6)) # LESN 
 rm(datause)
 datause <- ROIvolROIvarAll_Repsy6
-
 ## --- 8.2.1: ROI vol ~ stressi*R_putamenVol*PRS0001 -------
 # (1) GHRcluster1 ~ stressi*R_putamenVol*PRS0001
 library(Matrix)
 rm(fit1)
 rm(fit1CI)
 result1 <- c()
-# stress loop，14-20
 for (i in stressin){
   fit1 <- lm(GHRcluster1Lcaudatemm3 ~ datause[, i]* Rput78colmm3 *PRS0001 + age + sex + catTIV+ siteID+genePC1+genePC2+genePC3+genePC4+genePC5+genePC6+genePC7+genePC8+genePC9+genePC10, data = datause)
   fit1coef<-coef(summary(fit1))
@@ -451,14 +407,9 @@ for (i in stressin){
 }
 result1 <- as.data.frame(result1) # 7*7
 colnames(result1)[5]<- c('pvalue')
-result1$pvalue.Adj<- p.adjust(result1$pvalue, method = 'fdr', n=length(result1$pvalue)) ## 7*8, no FDR sign
-
-GHRclu1_LoopStressRputaPRS <- result1
-save(GHRclu1_LoopStressRputaPRS, file = '~/fu4_2yAnalysis/fu2year_V3Cat12regionalVolTIV/Further_removePSY6_1480_interestVar/ROIvol_SressPutamenPRS1480/SoOn_1480_GHRclu1_lm_LoopStressRputaPRS.rda') 
-
 
 # --- (1 again bin) GHRcluster1 ~ stressi*R_putamenVol*PRS0001
-# ------ sub 1480 取stress为binary SUMp_ksads_ptsd------
+# ------ sub 1480 , stress binary SUMp_ksads_ptsd------
 # datause, 1480*44
 datause[, 14]<- ifelse(datause[, 14] <= 0, 0, 1) # binary
 
