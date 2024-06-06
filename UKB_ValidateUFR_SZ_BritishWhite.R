@@ -1,8 +1,7 @@
-
+#############2. Validation in UKB ##############
 # install.packages("ggplot2")
 require(UsingR)
 require(ggplot2)
-
 
 # read csv files
 UKBIDlistweb <- read.table('~/UKB_FieldID_SubsetDown.csv', head = TRUE, sep=",")
