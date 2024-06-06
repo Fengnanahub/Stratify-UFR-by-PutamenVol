@@ -1,3 +1,4 @@
+#############1. Validation in ABCD ##############
 ## Add Regional GM vol（AAL3 ROI 77-78 and cluster 1， mm3）among 4253 sub's  t1 images(CAT12+8mm) of ABCD_v3 2year， named 
 # ~\ABCDV3subareaStriatumVOL.csv 
 
