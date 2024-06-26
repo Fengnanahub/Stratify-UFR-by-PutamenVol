@@ -159,7 +159,7 @@ for j= 1: length(cellname)
             
             V = spm_vol([subfileW, filesep, subfiles(subi).name]);
             [con1, XYZ] = spm_read_vols(V);  %  spm read image
-            % con1--113*137*113double; XYZ--3*1749353double;
+
             con1_data = con1(maskAAL>0); %  this is a vector
             mean = nanmean(con1_data(:));
             signal(subi, i+1) = mean* 1.5^3/10^3;% mm3 
@@ -227,7 +227,7 @@ for j= 1: length(cellname)
             
             V = spm_vol([subfileW, filesep, subfiles(subi).name]);
             [con1, XYZ] = spm_read_vols(V);  %  spm read image
-            % con1--113*137*113double; XYZ--3*1749353double;
+            
             con1_data = con1(maskAAL>0); %  this is a vector
             mean = nanmean(con1_data(:));
             signal(subi, i+1) = mean* 1.5^3/10^3;% mm3 --> ml, %%%%%%%% mean volume;
@@ -329,7 +329,6 @@ for j = 1:length(niifiles)
     clear volume;
     V = spm_vol([loadpath, filesep, niifiles(j).name]);
     [con1, XYZ] = spm_read_vols(V);  %  spm read image
-    % con1--113*137*113double; XYZ--3*1749353double;
     
     con1_data = con1(maskAAL>0); % get the voxles within the AAL mask only, this is a vector
     volumes{j, 1} = con1_data; % Cell{sub37*load1234}--382723*1double
